@@ -2,7 +2,7 @@
 {
     public class MyBall : Ball
     {
-        private void FixedUpdate()
+        private void Update()
         {
             Roll();
         }
