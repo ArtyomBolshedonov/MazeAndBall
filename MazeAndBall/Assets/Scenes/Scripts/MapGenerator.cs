@@ -9,6 +9,7 @@ namespace MazeAndBall
         private int Rows;
         private int Columns;
         public genCell[,] map;
+        public List<genCell> corridors;
 
         internal struct genCell
         {
@@ -51,6 +52,7 @@ namespace MazeAndBall
             genCell current = M[1, 1];
             current.Visited = false;
             Stack<genCell> stack = new Stack<genCell>();
+            corridors = new List<genCell>();
             do
             {
                 List<genCell> cells = new List<genCell>();
@@ -67,7 +69,6 @@ namespace MazeAndBall
                 {
                     genCell selected = cells[Random.Range(0, cells.Count)];
                     RemoveCurrentWall(ref M, current, selected);
-
                     selected.Visited = true;
                     M[selected.Row, selected.Col].Value = 0;
                     M[selected.Row, selected.Col].Visited = true;
@@ -87,6 +88,7 @@ namespace MazeAndBall
             {
                 if (current.Col > selected.Col) { M[current.Row, current.Col - 1].Value = 0; }
                 else { M[current.Row, selected.Col - 1].Value = 0; }
+                corridors.Add(selected);
             }
             else
             {
